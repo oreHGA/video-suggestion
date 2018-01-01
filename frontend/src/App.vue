@@ -1,17 +1,21 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <img src="./assets/video.png" width="100">
+    <Upload/>
+
+    <Playlist/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Upload from './components/Upload'
+import Playlist from './components/Playlist'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Upload,
+    Playlist
   }
 }
 </script>
