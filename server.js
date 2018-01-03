@@ -57,21 +57,15 @@ app.post('/upload', multipartMiddleware, function(req, res){
 
 });
 
-// app.post('/suggest', multipartMiddleware, function(req, res){
+app.get('/suggest', multipartMiddleware, function(req, res){
+    //  make api call to cloudinary to get tags from images in library
+    cloudinary.v2.api.tags( {resource_type : 'video'}, 
+        function(error, result){
+            console.log(result);
+            return res.json( result );
+        });
+})
 
-//     cloudinary.uploader.upload( req.body.image , 
-//     function(result) { 
-//         emotions = result.info.detection.adv_face.data[0].attributes.emotion;
-
-//         console.log( getSuggestion(emotions));
-//         return res.json( getSuggestion(emotions));
-
-//     } 
-//     ,{ detection: "adv_face" }
-//     );
-
-// });
-
-// Set port
+// Set port 
 app.listen('3128');
 console.log('Listening on localhost:3128');
