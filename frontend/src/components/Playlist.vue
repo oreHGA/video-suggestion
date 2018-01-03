@@ -1,21 +1,21 @@
 <template>
 	<div class="container suggestions">
-        <h1 class="header">Suggested Videos</h1>
+        <h1 class="header">Suggested Video Playist</h1>
         <p><em>results are based on video uploads...</em></p>
         
-        <div>
+        <div class="video-area">
             <!-- This will contain the video player -->
-
-
+            <h2>Your interests : </h2>
+            <template v-for="interest in interests">
+                {{ interest }} &nbsp;
+            </template>
+            
             <video
             id="video-player"
             controls
-            autoplay
-            class="cld-video-player  cld-video-player-skin-light"
-            data-cld-public-id="jflkvb1jrymh6wc0bjfq"
+            class="cld-video-player cld-video-player-skin-dark"
             >
             </video>
-
 
         </div>
 	</div>
@@ -23,20 +23,27 @@
 
 <script>
 import axios from 'axios'
-import cloudinary from 'cloudinary'
+// import cloudinary from 'cloudinary-core'
+
 
 export default {
   name: 'Playlist',
   data () {
     return {
-        username: 'captain_og',
+        interests : '',
     	loading: ''
     }
     },
-    created : function(){
-        let cld = cloudinary.Cloudinary.new({ cloud_name: "og-tech", secure: true});
-        var demoplayer = cld.videoPlayer('video-player')
-        demoplayer.source({ publicId: 'jflkvb1jrymh6wc0bjfq'})
+    mounted : function(){
+        // so what we do now is to get all the tags for videos uploaded by the user
+        axios.get('http://localhost:3128/suggest')
+        .then( result => {
+            // what you get ideally from here is the json of the info
+            this.interests = result.data.tags;
+            var cld = cloudinary.Cloudinary.new({ cloud_name: 'demo' });
+            var demoplayer = cld.videoPlayer('video-player');
+            demoplayer.playlistByTag( result.data.tags[0] ,{ autoAdvance: 0, repeat: true, presentUpcoming: 15 })
+        })
     },
 	methods: {
 		fetchVideos : function(){
@@ -69,5 +76,15 @@ a {
 
 .suggestions{
     margin-top: 30px;
+}
+
+.video-area{
+    margin: auto;
+}
+
+#video-player{
+    margin-left : auto;
+    margin-right : auto;
+    margin-top : 20px;
 }
 </style>
