@@ -1,7 +1,7 @@
 <template>
 	<div class="container suggestions">
         <h1 class="header">Suggested Video Playist</h1>
-        <p><em>results are based on video uploads...</em></p>
+        <p><em>results are based on previous video uploads...</em></p>
         
         <div class="video-area">
             <!-- This will contain the video player -->
@@ -23,8 +23,6 @@
 
 <script>
 import axios from 'axios'
-// import cloudinary from 'cloudinary-core'
-
 
 export default {
   name: 'Playlist',
@@ -40,8 +38,8 @@ export default {
         .then( result => {
             // what you get ideally from here is the json of the info
             this.interests = result.data.tags;
-            var cld = cloudinary.Cloudinary.new({ cloud_name: 'demo' });
-            var demoplayer = cld.videoPlayer('video-player');
+            let cld = cloudinary.Cloudinary.new({ cloud_name: 'demo' });
+            let demoplayer = cld.videoPlayer('video-player').width('700');
             demoplayer.playlistByTag( result.data.tags[0] ,{ autoAdvance: 0, repeat: true, presentUpcoming: 15 })
         })
     },

@@ -24,7 +24,6 @@ export default {
   data () {
     return {
 			video: null,
-			username: 'captain_og',
     	loading: ''
     }
 	},

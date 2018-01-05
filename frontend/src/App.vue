@@ -2,7 +2,6 @@
   <div id="app">
     <img src="./assets/video.png" width="100">
     <Upload/>
-
     <Playlist/>
   </div>
 </template>
