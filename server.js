@@ -33,9 +33,9 @@ const multipartMiddleware = multipart();
 // ------------------------------------
 
 cloudinary.config({
-    cloud_name: 'og-tech', 
-    api_key: '347839475858389', 
-    api_secret: 'uuXUbAzliYMV5ZOdQXLW9ixE7DM'
+    cloud_name: 'CLOUD_NAME', 
+    api_key: 'API_KEY', 
+    api_secret: 'API_SECRET'
 });
 
 // ------------------------------------
